@@ -1,7 +1,16 @@
-baseURL = "https://xinyi-zipper.netlify.app/"
+baseURL = "https://your-site.netlify.app/" # 稍后替换为你的自定义域名
 languageCode = "zh-cn"
-title = "信益拉链有限公司"
-theme = ""
+title = "信益拉链有限公司官方网站"
+theme = ""  # 明确指定不使用主题
+
+# 核心修复：禁用所有Hugo自动生成的页面类型
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "robotsTXT", "section", "home", "page"]
+
+[build]
+  # 禁用不必要的资源处理
+  noJSConfigInAssets = true
+  # 如果构建仍有问题，可以尝试启用此选项
+  # writeStats = true
 
 [params]
   description = "专业拉链生产厂家"

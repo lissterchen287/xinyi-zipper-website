@@ -1,7 +1,7 @@
 baseURL = "https://xinyi-zipper.netlify.app/"
 languageCode = "zh-cn"
-title = "义乌信益拉链有限公司"
+title = "欣艺拉链工厂"
 theme = ""  # 不使用任何主题
 
 [params]
-  description = "色彩丰富 拉合顺滑 工艺精湛 Colorful Smooth pulling Exquisite craftmanship"
+  description = "专业拉链生产厂家"

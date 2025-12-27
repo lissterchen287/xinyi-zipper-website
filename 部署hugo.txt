@@ -1,0 +1,48 @@
+# 1. 创建最简单的配置文件
+cat > hugo.toml << 'EOF'
+baseURL = "https://xinyi-zipper.netlify.app/"
+languageCode = "zh-cn"
+title = "信益拉链有限公司"
+theme = ""  # 不使用任何主题
+
+[params]
+  description = "专业拉链生产厂家"
+EOF
+
+# 2. 创建一个空白布局，避免Hugo干扰
+mkdir -p layouts/_default
+
+cat > layouts/_default/baseof.html << 'EOF'
+<!DOCTYPE html>
+<html>
+  <body>
+    {{ block "main" . }}{{ end }}
+  </body>
+</html>
+EOF
+
+cat > layouts/_default/single.html << 'EOF'
+{{ define "main" }}
+  <!-- 空白内容，使用静态文件 -->
+{{ end }}
+EOF
+
+# 3. 创建一个首页重定向
+cat > layouts/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="refresh" content="0; url=/index.html">
+</head>
+<body>
+  正在跳转...
+</body>
+</html>
+EOF
+
+
+
+# 添加所有文件到暂存区
+git add --all
+# 提交更改 (请将引号内的信息替换为你自己的)
+git commit -m "试发布版本0.1"

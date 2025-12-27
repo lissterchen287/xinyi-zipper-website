@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0; url=/index.html">
+    <title>{{ .Site.Title }}</title>
 </head>
 <body>
-  正在跳转...
+    <!-- 这里直接嵌入静态文件的内容 -->
+    {{ readFile "static/index.html" | safeHTML }}
 </body>
 </html>

@@ -1,0 +1,32 @@
+backend:
+  name: git-gateway
+  branch: main # 你的 GitHub 默认分支
+
+# 图片上传存放的路径
+media_folder: "public/img" 
+# 网页访问图片的路径
+public_folder: "/img"
+
+collections:
+  - name: "product_data"
+    label: "产品与标签管理"
+    delete: false # 禁止删除整个文件
+    editor:
+      preview: false # 关闭实时预览以提升性能
+    files:
+      - name: "data"
+        label: "数据中心"
+        file: "data.json" # 对应你存放数据的 JSON 文件
+        fields:
+          - label: "产品名录"
+            name: "products"
+            widget: "list"
+            fields:
+              - { label: "产品 ID", name: "id", widget: "number" }
+              - { label: "产品名称", name: "name", widget: "string" }
+              - { label: "产品图片", name: "img", widget: "image" }
+              - { label: "标签", name: "tags", widget: "select", multiple: true, 
+                  options: ["树脂", "尼龙", "金属", "防水", "自动锁", "冲锋衣", "高端皮包", "帐篷"] }
+          - label: "全局可用标签"
+            name: "availableTags"
+            widget: "list" # 允许在这里动态增删可选标签

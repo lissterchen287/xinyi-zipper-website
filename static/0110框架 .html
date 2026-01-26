@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>义乌信益拉链产品名录</title>
+    <style>
+        :root {
+            --primary: #1a56db;
+            --accent: #d1d5db;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-light: #f9fafb;
+        }
+
+        body { font-family: "Inter", "PingFang SC", sans-serif; background: #fff; margin: 0; color: var(--text-main); line-height: 1.5; }
+
+        /* 1. 公司形象区 (Header & Hero) */
+        .company-header {
+            padding: 20px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+
+        .hero-banner {
+            width: 90%;
+            margin: 20px auto;
+            height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1200x400?text=Zipper+Manufacturing+Expertise'); 
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        /* 2. 筛选控制区 */
+        .sticky-filters {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 15px 5%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filter-row { display: flex; align-items: flex-start; margin-bottom: 10px; gap: 15px; }
+        .filter-label { font-weight: 600; min-width: 60px; padding-top: 5px; font-size: 0.9rem; }
+        .filter-options { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .tag-btn {
+            padding: 6px 14px;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .tag-btn:hover { border-color: var(--primary); }
+        .tag-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .clear-btn {
+            padding: 6px 14px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        /* 3. 展示模块容器 */
+        .display-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 400px; }
+
+        /* 引导点选状态 (Empty State) */
+        .placeholder-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--bg-light);
+            border: 2px dashed #d1d5db;
+            border-radius: 24px;
+        }
+        .placeholder-state img { width: 150px; opacity: 0.5; margin-bottom: 20px; }
+        .placeholder-state h3 { color: var(--text-muted); }
+
+        /* 产品网格 */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            border: 1px solid #f3f4f6;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .product-img { width: 100%; height: 220px; object-fit: cover; }
+        .product-info { padding: 16px; }
+        .mini-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+        .mini-tag { font-size: 0.7rem; background: #eff6ff; color: var(--primary); padding: 2px 6px; border-radius: 4px; }
+
+        /* 4. 联系方式弹窗 (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.7);
+            display: none; /* 初始隐藏 */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; }
+        .contact-info { margin-top: 20px; background: #f3f4f6; padding: 15px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+    <header class="company-header">
+        <div class="logo">YIWU CITY XINYI ZIPPER</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">专业成品拉链供货商</div>
+    </header>
+
+    <section class="hero-banner">
+        <div>
+            <h1>企业形式展示占用</h1>
+            <p>放点字占个地方先</p>
+        </div>
+    </section>
+
+    <div class="sticky-filters">
+        <div class="filter-row">
+            <div class="filter-label">分类：</div>
+            <div class="filter-options" id="filter-options-container">
+                <button class="tag-btn" data-tag="树脂">树脂</button>
+                <button class="tag-btn" data-tag="尼龙">尼龙</button>
+                <button class="tag-btn" data-tag="金属">金属</button>
+                <button class="tag-btn" data-tag="防水">防水</button>
+                <button class="tag-btn" data-tag="自动锁">自动锁</button>
+                <button class="tag-btn" data-tag="冲锋衣">冲锋衣</button>
+                <button class="tag-btn" data-tag="高端皮包">高端皮包</button>
+                <button class="tag-btn" data-tag="帐篷">帐篷</button>
+            </div>
+            <button class="clear-btn" onclick="clearFilters()">取消所有筛选</button>
+        </div>
+    </div>
+
+    <div class="display-container" id="main-display">
+        <div class="placeholder-state" id="placeholder">
+            <img src="https://cdn-icons-png.flaticon.com/512/2313/2313434.png" alt="Select Tags">
+            <h3>请点选上方标签以检索产品</h3>
+            <p>支持多选。您可以同时选择“树脂”和“防水”来查找特定产品。</p>
+        </div>
+
+        <div class="product-grid" id="product-grid" style="display: none;"></div>
+    </div>
+
+    <div class="modal-overlay" id="contact-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-product-name">联系咨询</h2>
+            <p>对该款拉链感兴趣？请通过以下方式联系我们：</p>
+            <div class="contact-info">
+                <p><strong>销售专线：</strong> +86 123-4567-8910</p>
+                <p><strong>微信/WhatsApp：</strong> Zipper_Pro_Sales</p>
+                <p><strong>邮箱：</strong> inquiry@factory.com</p>
+            </div>
+            <button class="tag-btn active" style="margin-top:20px; width:100%" onclick="closeModal()">返回浏览</button>
+        </div>
+    </div>
+
+    <script>
+        // 核心数据 (这里放入你从 Dify 识别生成的 JSON)
+        const zipperData = [
+            { "id": 1, "name": "#5 树脂防水拉链", "img": "https://via.placeholder.com/400x300?text=Waterproof+Resin", "tags": ["树脂", "自动锁", "防水", "冲锋衣"] },
+            { "id": 2, "name": "亮金玉米牙金属拉链", "img": "https://via.placeholder.com/400x300?text=Luxury+Metal", "tags": ["金属", "高端皮包"] },
+            { "id": 3, "name": "双面滑块帐篷拉链", "img": "https://via.placeholder.com/400x300?text=Tent+Zipper", "tags": ["树脂", "帐篷"] },
+            { "id": 4, "name": "反光防水尼龙拉链", "img": "https://via.placeholder.com/400x300?text=Reflective+Nylon", "tags": ["尼龙", "防水", "自动锁"] }
+        ];
+
+        let selectedTags = new Set();
+
+        // 监听所有标签按钮
+        document.querySelectorAll('.tag-btn[data-tag]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tag = this.getAttribute('data-tag');
+                if (selectedTags.has(tag)) {
+                    selectedTags.delete(tag);
+                    this.classList.remove('active');
+                } else {
+                    selectedTags.add(tag);
+                    this.classList.add('active');
+                }
+                updateDisplay();
+            });
+        });
+
+        // 取消所有筛选
+        function clearFilters() {
+            selectedTags.clear();
+            document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
+            updateDisplay();
+        }
+
+        // 更新显示逻辑
+        function updateDisplay() {
+            const placeholder = document.getElementById('placeholder');
+            const grid = document.getElementById('product-grid');
+
+            if (selectedTags.size === 0) {
+                placeholder.style.display = 'block';
+                grid.style.display = 'none';
+            } else {
+                placeholder.style.display = 'none';
+                grid.style.display = 'grid';
+                
+                // 执行“且”逻辑筛选 (必须包含所有选中的标签)
+                const filtered = zipperData.filter(item => 
+                    Array.from(selectedTags).every(t => item.tags.includes(t))
+                );
+
+                renderGrid(filtered);
+            }
+        }
+
+        function renderGrid(data) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            if (data.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px;">没有找到完全符合条件的组合产品，请尝试减少筛选条件。</div>';
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => openModal(item.name);
+                card.innerHTML = `
+                    <img src="${item.img}" class="product-img">
+                    <div class="product-info">
+                        <div style="font-weight:bold">${item.name}</div>
+                        <div class="mini-tags">
+                            ${item.tags.map(t => `<span class="mini-tag">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 弹窗控制
+        function openModal(name) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('contact-modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('contact-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
